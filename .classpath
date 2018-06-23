@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/trove/3.1a1/lib/trove-3.1a1.jar" sourcepath="lib/trove/3.1a1/trove-3.1a1-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/I:/bigfiles%20folder/dev/git/cplir-c/OJMath/lib/trove/3.1a1/javadocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
