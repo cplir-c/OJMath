@@ -14,7 +14,7 @@ import sMath.function.interfaces.IMultivariate;
 import sMath.utility.CombineOnEqualSet;
 import sMath.numerical.integer.Integer;
 import sMath.numerical.integer.Zero;
-import sMath.numerical.INumber;
+import sMath.numerical.interfaces.INumber;
 
 public class Sum extends CombineOnEqualSet implements IMultivariate,ICommutative {
 	private Sum(){}//for externalization

@@ -8,7 +8,6 @@ import sMath.utility.CombineOnEqualSet;
 import sMath.Expression;
 import sMath.VariableSymbol;
 import sMath.function.interfaces.IMultivariate;
-import sMath.numerical.INumber;
 
 public class Product extends CombineOnEqualSet implements IMultivariate {
 	protected Product(Expression...args) {
