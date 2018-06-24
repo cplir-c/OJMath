@@ -58,7 +58,7 @@ public abstract class LongFactoring {
 			//y(x) = x**2 mod n factorizes completely over the factor base
 			final int[] FACTOR_BASE=sieveOfSundaram(SMOOTHNESS_BOUND);
 			int[] a=new int[FACTOR_BASE.length+1];
-				StrictMath.min(x*x%n,n-x*x%n);
+				//StrictMath.min(x*x%n,n-x*x%n);
 			return FACTOR_BASE;
 		}
 	static Runnable combinationsWithReplacement(final int poolLength,final int repeat, SynchronousQueue<int[]> queue){//translated from https://docs.python.org/3/library/itertools.html?highlight=combinations#itertools.combinations

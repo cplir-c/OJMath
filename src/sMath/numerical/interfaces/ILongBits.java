@@ -1,5 +1,7 @@
 package sMath.numerical.interfaces;
 
 public interface ILongBits {
-	byte signum();
+	int startPosition();
+	int endPosition();
+	long getLongBits(int section);
 }

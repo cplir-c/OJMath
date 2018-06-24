@@ -4,9 +4,10 @@ public class ArithmaticAssist {
 	private ArithmaticAssist(){}
 	
 	/**
-	 * @return true if l is a power of two (even if negative)*/
+	 * @return true if l is a power of two*/
 	public static boolean isPowerOfTwo(long l) {
-		return l>=0&&(l&(l-1))==0;
+		if(l<0) l=-l;//-9223372036854775808 (Long.MIN_VALUE) is represented by only the sign bit true, so it fits the pattern
+		return (l&(l-1))==0;
 	}
 	public static boolean safeToAdd(long self,long other) {
 		long r=self+other;

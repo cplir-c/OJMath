@@ -1,7 +1,8 @@
 package sMath.numerical.rational;
 
-import sMath.numerical.Number;
 import sMath.numerical.integer.Integer;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
 import sMath.numerical.integer.BigInteger;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
@@ -18,17 +19,17 @@ public class Binimal extends BigInteger {
 		exponent=place;
 	}
 	@Override
-	public Number negate() {
+	public INumber negate() {
 		return Binimal.valueOf((BigInteger)super.negate(),exponent);
 	}
-	public static Number valueOf(BigInteger mantissa, int exponent) {
+	public static INumber valueOf(BigInteger mantissa, int exponent) {
 		return valueOf(mantissa.self,mantissa.array,exponent);
 	}
-	public static Number valueOf(long self, long[] array, int exponent) {
+	public static INumber valueOf(long self, long[] array, int exponent) {
 		return null;
 	}
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		if (number instanceof Integer) {
 			
 		} else if (number instanceof Binimal) {
@@ -37,32 +38,32 @@ public class Binimal extends BigInteger {
 		return number.add(this);
 	}
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public int compareTo(Number o) {
+	public int compareTo(IRealNumber o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
-	public Number rightBitShift(Number n) {
+	public INumber rightBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number leftBitShift(Number n) {
+	public INumber leftBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number logicalBitShift(Number n) {
+	public INumber logicalBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,32 +73,32 @@ public class Binimal extends BigInteger {
 		return null;
 	}
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseXor(Number n) {
+	public INumber bitwiseXor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}

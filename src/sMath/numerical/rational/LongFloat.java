@@ -1,7 +1,7 @@
 package sMath.numerical.rational;
 
-import sMath.numerical.Number;
 import sMath.numerical.integer.Integer;
+import sMath.numerical.interfaces.INumber;
 
 public class LongFloat extends Integer {
 	final int exponent;
@@ -12,7 +12,7 @@ public class LongFloat extends Integer {
 		super((Double.doubleToLongBits(n)&0x000fffffffffffffL)*(byte)Double.compare(n,0));//mantissa
 		exponent=(int) ((Double.doubleToLongBits(n)<<1)>>53);//catch the last bit as the sign of the exponent
 	}
-	public static Number valueOf(long self, long denominator) {
+	public static INumber valueOf(long self, long exponent) {
 		// TODO Auto-generated method stub
 		return null;
 	}

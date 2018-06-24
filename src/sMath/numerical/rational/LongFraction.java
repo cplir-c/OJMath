@@ -1,15 +1,32 @@
 package sMath.numerical.rational;
 
-import sMath.numerical.Number;
-public class LongFraction implements Number{
+import sMath.numerical.integer.Fraction;
+import sMath.numerical.interfaces.IInteger;
+import sMath.numerical.interfaces.ILongBits;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
+import sMath.utility.ArithmaticAssist;
+public class LongFraction implements IRealNumber{
 	/***/private static final long serialVersionUID = -2181383189529091656L;/***/
 	protected final long numerator;
 	protected final long denominator;
 	protected LongFraction(long a, long b){
 		numerator=a;denominator=b;
 	}
-	public Number valueOf(long a,long b) {
-		sMath.utility.ArithmaticAssist.isPowerOfTwo(b)?LongFloat()
+	public static INumber valueOf(long a,long b) {
+		long denominator=b;
+		if(denominator<0) {
+			if(a==-9223372036854775808L)
+				return Fraction.valueOf(a,b);
+			denominator=-b;
+			a=-a;
+		}
+		if(denominator<0)//min value
+			return Fraction.valueOf(a,b);
+		if(ArithmaticAssist.isPowerOfTwo(denominator))
+			return LongFloat.valueOf(a,Long.numberOfLeadingZeros(b));
+		long gcd=gcd(a,b);
+		return new LongFraction(a/gcd,b/gcd);
 	}
 	public LongFraction add(LongFraction b){
 		final long gcd=gcd(this.denominator,b.denominator);
@@ -49,7 +66,7 @@ public class LongFraction implements Number{
 	        dividing both u and v. */
 		for (shift = 0; ((u | v) & 1) == 0; ++shift) {
 			u >>= 1;
-			v >>= 1;
+		v >>= 1;
 		}
 
 		while ((u & 1) == 0)
@@ -75,7 +92,7 @@ public class LongFraction implements Number{
 
 			/* restore common factors of 2 */
 			long j=u<<shift;
-			
+
 			//if both u and v were negative, result is negative
 			return negative?-j:j;
 	}
@@ -93,41 +110,6 @@ public class LongFraction implements Number{
 		return Integer.signum((int)(this.numerator*(b.denominator/gcd)-b.numerator*(this.denominator/gcd)));
 	}
 	@Override
-	public Number add(Number number) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Number multiply(Number b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Number divide(Number b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int compareTo(Number o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public Number rightBitShift(Number n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Number leftBitShift(Number n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Number logicalBitShift(Number n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public String toBinaryString() {
 		// TODO Auto-generated method stub
 		return null;
@@ -138,61 +120,77 @@ public class LongFraction implements Number{
 		return null;
 	}
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber add(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber multiply(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseNot() {
+	public INumber divide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseNor(Number n) {
+	public IInteger floorDivide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseXor(Number n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Number bitwiseNand(Number n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public long getLongBits(int offset) {
+	public int compareTo(IRealNumber o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
-	public void getLongBits(int offset, long[] container) {
+	public INumber rightBitShift(INumber n) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 	@Override
-	public int firstSignificant() {
+	public INumber leftBitShift(INumber n) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 	@Override
-	public int lastSignificant() {
+	public INumber logicalBitShift(INumber n) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+	@Override
+	public INumber bitwiseAnd(INumber n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public INumber bitwiseOr(INumber n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public INumber bitwiseNot() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public INumber bitwiseXor(INumber n) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	@Override
 	public byte signum() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
 	@Override
-	public Number floorDivide(Number b) {
+	public ILongBits getLongBits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public INumber reciprocal() {
 		// TODO Auto-generated method stub
 		return null;
 	}

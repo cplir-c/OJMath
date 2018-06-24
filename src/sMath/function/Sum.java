@@ -9,13 +9,14 @@ import gnu.trove.set.hash.THashSet;
 import sMath.Expression;
 import sMath.VariableSymbol;
 import sMath.function.Product;
+import sMath.function.interfaces.ICommutative;
 import sMath.function.interfaces.IMultivariate;
 import sMath.utility.CombineOnEqualSet;
 import sMath.numerical.integer.Integer;
 import sMath.numerical.integer.Zero;
-import sMath.numerical.Number;
+import sMath.numerical.INumber;
 
-public class Sum extends CombineOnEqualSet implements IMultivariate {
+public class Sum extends CombineOnEqualSet implements IMultivariate,ICommutative {
 	private Sum(){}//for externalization
 	protected Sum(Expression ... args){
 		super(args.length);
@@ -26,7 +27,7 @@ public class Sum extends CombineOnEqualSet implements IMultivariate {
 		return sum(Arrays.asList(args));
 	}
 	protected static Expression stripConstant(Expression e) {
-		return (e instanceof Product&&((Product)e).containsKey(Zero.ZERO))?Product.product(((Product)e).values().parallelStream().unordered().filter(a -> !(a instanceof Number) ).toArray(Expression[]::new)):e;
+		return (e instanceof Product&&((Product)e).containsKey(Zero.ZERO))?Product.product(((Product)e).values().parallelStream().unordered().filter(a -> !(a instanceof INumber) ).toArray(Expression[]::new)):e;
 	}
 	public static Expression sum(Collection<Expression> args) {
 		Predicate<Object> p=Sum.class::isInstance;
@@ -51,8 +52,8 @@ public class Sum extends CombineOnEqualSet implements IMultivariate {
 		if(orig instanceof Product) {
 			Product first=(Product) orig;
 			Product second=(Product) old;
-			Number coefficientOne=(Number) first.get(Integer.valueOf(1));
-			Number coefficientTwo=(Number) second.get(Integer.valueOf(1));
+			INumber coefficientOne=(INumber) first.get(Integer.valueOf(1));
+			INumber coefficientTwo=(INumber) second.get(Integer.valueOf(1));
 			if(coefficientOne==null)
 				if(coefficientTwo==null)
 					coefficientOne=Integer.valueOf(2);
@@ -63,8 +64,8 @@ public class Sum extends CombineOnEqualSet implements IMultivariate {
 					coefficientOne=coefficientOne.add(Integer.valueOf(1));
 				else
 					coefficientOne=coefficientOne.add(coefficientTwo);
-		} else if(orig instanceof Number) {
-			return ((Number)orig).add((Number)old);
+		} else if(orig instanceof INumber) {
+			return ((INumber)orig).add((INumber)old);
 		} else if(orig.equals(old)) {
 			return Product.product(Integer.valueOf(2),orig);
 		}

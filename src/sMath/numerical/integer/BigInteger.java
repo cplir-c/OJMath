@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 
-import sMath.numerical.Number;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
 import sMath.utility.ArithmaticAssist;
 import sMath.utility.SearchableWeakHashSet;
 import sMath.utility.SynchronizedSearchableSet;
@@ -22,7 +23,7 @@ public class BigInteger extends Integer{
 	public static final String CLASS_NAME="LsMath.numerical.integer.BigInteger";
 	protected final int hashCode;
 	protected WeakReference<String> toString;
-	protected WeakReference<Number> negate;
+	protected WeakReference<INumber> negate;
 	protected WeakReference<String> toBinaryString;
 	protected WeakReference<String> toHexString;
 	protected BigInteger(long start, long[] i){
@@ -45,7 +46,7 @@ public class BigInteger extends Integer{
 				.unordered()
 				.reduce(0,(a,b)->a^b);
 	}
-	public static Number valueOf(long start,long[] i){
+	public static INumber valueOf(long start,long[] i){
 		if (i.length==0)
 			return valueOf(start);
 		if (start==0)
@@ -84,7 +85,7 @@ public class BigInteger extends Integer{
 		return string;
 	}
 	@Override
-	public Number negate() {
+	public INumber negate() {
 		if(negate!=null&&negate.get()!=null) return negate.get();
 		long[] copy=new long[array.length];
 		if(copy.length<512)
@@ -112,12 +113,12 @@ public class BigInteger extends Integer{
 			ThreadArrayOperation toNegate=new NegateArray().setFields(0,copy.length);
 			ForkJoinPool.commonPool().submit(toNegate).join();
 		}
-		Number negated=valueOf(-self,copy);
+		INumber negated=valueOf(-self,copy);
 		negate=new WeakReference<>(negated);
 		return negated;
 	}
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		switch(number.getClass().getName()){
 		case(Integer.CLASS_NAME):{
 			long other=((Integer) number).self;
@@ -160,32 +161,32 @@ public class BigInteger extends Integer{
 		}
 	}
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public int compareTo(Number o) {
+	public int compareTo(IRealNumber o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
-	public Number rightBitShift(Number n) {
+	public INumber rightBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number leftBitShift(Number n) {
+	public INumber leftBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number logicalBitShift(Number n) {
+	public INumber logicalBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -204,7 +205,7 @@ public class BigInteger extends Integer{
 		return hex;
 	}
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		long[] copy=new long[array.length];
 		if(array.length<512) {
 			for(int i=0;i<array.length;i++)
@@ -231,12 +232,12 @@ public class BigInteger extends Integer{
 		return BigInteger.valueOf(~self, copy);
 	}
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		switch(n.getClass().getName()){
 		case("Lnumerical.integer.Integer"):{
 			Integer other=((Integer)n);
@@ -275,12 +276,12 @@ public class BigInteger extends Integer{
 		}
 	}
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		// TODO Auto-generated method stub //
 		return null;
 	}
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		// TODO Auto-generated method stub //
 		return null;
 	}

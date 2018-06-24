@@ -1,58 +1,55 @@
 package sMath.numerical.rational;
 
-import sMath.numerical.Number;
+import sMath.numerical.interfaces.IInteger;
+import sMath.numerical.interfaces.ILongBits;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
 
-public class MixedNumber implements Number {
+public class MixedNumber implements IRealNumber {
 	
-	public static Number valueOf(Number number, long numerator, long denominator) {
+	public static INumber valueOf(INumber number, long numerator, long denominator) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public Number negate() {
+	public INumber negate() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int compareTo(Number o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Number rightBitShift(Number n) {
+	public INumber rightBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number leftBitShift(Number n) {
+	public INumber leftBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number logicalBitShift(Number n) {
+	public INumber logicalBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,37 +67,37 @@ public class MixedNumber implements Number {
 	}
 
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseXor(Number n) {
+	public INumber bitwiseXor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -112,31 +109,31 @@ public class MixedNumber implements Number {
 	}
 
 	@Override
-	public long getLongBits(int offset) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void getLongBits(int offset, long[] container) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int firstSignificant() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int lastSignificant() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public byte signum() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public INumber reciprocal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IInteger floorDivide(INumber b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ILongBits getLongBits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int compareTo(IRealNumber o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

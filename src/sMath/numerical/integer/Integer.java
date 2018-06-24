@@ -1,6 +1,12 @@
 package sMath.numerical.integer;
 
-import sMath.numerical.Number;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
+import sMath.numerical.interfaces.ICustom;
+import sMath.numerical.interfaces.IFraction;
+import sMath.numerical.interfaces.IInteger;
+import sMath.numerical.interfaces.ILongBits;
+import sMath.numerical.interfaces.ISparse;
 import sMath.numerical.rational.LongFloat;
 import sMath.numerical.rational.MixedNumber;
 import sMath.utility.ArithmaticAssist;
@@ -11,20 +17,22 @@ import java.lang.ref.WeakReference;
 import java.util.Arrays;
 
 import gnu.trove.TCollections;
+import gnu.trove.map.TIntLongMap;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
-public class Integer implements sMath.numerical.Number{
+public class Integer implements IInteger{
 	public final long self;
-	protected static final WeakReference<Integer>[] cache=new WeakReference[255];
+	@SuppressWarnings("unchecked")
+	protected static final WeakReference<IInteger>[] cache=new WeakReference[255];
 	public static final String CLASS_NAME="LsMath.numerical.integer.Integer";
 	protected Integer(long integer){
 		self=integer;
 	}
-	public static Number valueOf(long l) {
+	public static IInteger valueOf(long l) {
 		if(((byte)l)==l) {
 			if(l==0)
 				return Zero.ZERO;
-			WeakReference<Integer> at=cache[(int) (l+128)];
+			WeakReference<IInteger> at=cache[(int) (l+128)];
 			if (at==null||at.get()==null){
 			    Integer k=new Integer(l);
 				at=new WeakReference<>(k);
@@ -51,16 +59,16 @@ public class Integer implements sMath.numerical.Number{
 		return (int) (self^(self>>>32));
 	}
 	@Override
-	public Number negate(){
+	public INumber negate(){
 		return self==-self?BigInteger.valueOf(1,new long[]{0}):Integer.valueOf(-self);
 		//otherwise it might not negate
 	}
 	@Override
-	public int compareTo(Number o) {
+	public int compareTo(IRealNumber o) {
 		return (o.getClass()==Integer.class)?Long.compare(self,((Integer)o).self):-o.compareTo(this);
 	}
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		if(number.getClass()==Integer.class){
 			long other=((Integer)number).self;
 			long r=self+other;
@@ -77,7 +85,7 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		if(b.getClass()==Integer.class) {
 			long other=((Integer)b).self;
 			long result = self * other;
@@ -93,16 +101,17 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 	    if(b.getClass()==Integer.class){
 	        long other=((Integer)b).self;
 	    	return self%other==0?valueOf(self/other):(self>other?MixedNumber.valueOf(Integer.valueOf(self/other),self%other,other):LongFraction.valueOf(self,other));
-	    } else {//BitInterface time
-	        return this.compareTo(b)>0?MixedNumber.valueOf(floorDivide(b), self, self):Fraction.valueOf(this,b);
-	    }
+	    } else if(b instanceof ILongBits) {//BitInterface time
+	        return this.compareTo((IRealNumber) b)>0?MixedNumber.valueOf(floorDivide(b), self, self):Fraction.valueOf(this,b);
+	    } else// if(b instanceof IFraction||b instanceof ICustom||b instanceof ISparse) {
+			return b.reciprocal().multiply(this);
 	}
 	@Override
-	public Number rightBitShift(Number n) {//>>
+	public INumber rightBitShift(INumber n) {//>>
 		if(n.getClass()==Integer.class) {
 			Integer o=(Integer) n;
 			long other=o.self;
@@ -113,22 +122,24 @@ public class Integer implements sMath.numerical.Number{
 			} else {
 			    
 			}
-		} else {//BitInterface time
-		    int high=n.firstSignificant();
-		    int low=n.lastSignificant();
-		    if(low<0&&n instanceof IFraction)
-		            return n.reciprocal().multiply(this);
-		    
+		} else if(n instanceof ILongBits){//BitInterface time
+			ILongBits bits=(ILongBits)n;
+		    int high=bits.startPosition();
+		    int low=bits.endPosition();
+		} else if(n instanceof IFraction) {
+			return n.reciprocal().multiply(this);
+		} else if(n instanceof ISparse) {
+			
 		}
 		return null;
 	}
 	@Override
-	public Number leftBitShift(Number n) {//<<
+	public INumber leftBitShift(INumber n) {//<<
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Number logicalBitShift(Number n) {//>>>
+	public INumber logicalBitShift(INumber n) {//>>>
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -137,11 +148,11 @@ public class Integer implements sMath.numerical.Number{
 		return Long.toBinaryString(self);
 	}
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		return valueOf(~self);
 	}
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		if(n.getClass()==Integer.class){
 			return valueOf(self&((Integer)n).self);
 		} else {
@@ -149,7 +160,7 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		if(n.getClass()==Integer.class){
 			return valueOf(self|((Integer)n).self);
 		} else {
@@ -157,7 +168,7 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		if(n.getClass()==Integer.class){
 			return valueOf(~(((Integer)n).self|self));
 		} else {
@@ -165,7 +176,7 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number bitwiseXor(Number n){
+	public INumber bitwiseXor(INumber n){
 		if(n.getClass()==Integer.class){
 			return valueOf(((Integer)n).self^self);
 		} else {
@@ -173,7 +184,7 @@ public class Integer implements sMath.numerical.Number{
 		}
 	}
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		if(n.getClass()==Integer.class){
 			return valueOf(~(((Integer)n).self&self));
 		} else {
@@ -190,34 +201,31 @@ public class Integer implements sMath.numerical.Number{
 			(offset<0&&offset>-64?self<<-offset:0);
 	}
 	@Override
-	public void getLongBits(int offset, long[] container) {
-		//don't do this with integers please, its all 0 outside of self
-		Arrays.fill(container,0);
-		int end=(container.length<<6)+offset;
-		if(offset>63||end<0)
-			return;
-		
-	}
-	@Override
-	public int firstSignificant() {
-		// TODO Auto-generated method stub
-		return 64-Long.numberOfLeadingZeros(self);
-	}
-	private long abs(){
-	    return self<0?-self:self;
-	}
-	@Override
-	public int lastSignificant() {
-		// TODO Auto-generated method stub
-		return Long.numberOfTrailingZeros(self);
-	}
-	@Override
 	public byte signum() {
 		return (byte)Long.signum(self);
 	}
 	@Override
-	public Number floorDivide(Number b) {
+	public int startPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int endPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public IInteger floorDivide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public INumber reciprocal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ILongBits getLongBits() {
+		return this;
 	}
 }

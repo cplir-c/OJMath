@@ -1,59 +1,56 @@
 package sMath.numerical.integer;
 
-import sMath.numerical.Number;
+import sMath.numerical.interfaces.IInteger;
+import sMath.numerical.interfaces.ILongBits;
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
 import sMath.numerical.rational.LongFloat;
 import sMath.numerical.rational.MixedNumber;
 
-public class Fraction implements Number {
+public class Fraction implements IRealNumber {
 	
-	public static Number valueOf(long numerator, long denominator) {
+	public static INumber valueOf(long numerator, long denominator) {
 		return null;
 	}
 
 	@Override
-	public Number negate() {
+	public INumber negate() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int compareTo(Number o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Number rightBitShift(Number n) {
+	public INumber rightBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number leftBitShift(Number n) {
+	public INumber leftBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number logicalBitShift(Number n) {
+	public INumber logicalBitShift(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -71,37 +68,37 @@ public class Fraction implements Number {
 	}
 
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseXor(Number n) {
+	public INumber bitwiseXor(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -112,31 +109,31 @@ public class Fraction implements Number {
 		return null;
 	}
 
-	public static Number valueOf(Number numerator, Number denominator) {
+	public static INumber valueOf(INumber numerator, INumber denominator) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public long getLongBits(int offset) {
+	public INumber reciprocal() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public void getLongBits(int offset, long[] container) {
+	public IInteger floorDivide(INumber b) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public int firstSignificant() {
+	public ILongBits getLongBits() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int lastSignificant() {
+	public int compareTo(IRealNumber o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

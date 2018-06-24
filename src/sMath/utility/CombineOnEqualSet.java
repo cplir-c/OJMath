@@ -7,9 +7,7 @@ import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import sMath.Expression;
 import sMath.VariableSymbol;
-import sMath.utility.interfaces.HashOperation;
-
-public abstract class CombineOnEqualSet extends THashMap<Expression,Expression> implements Expression, HashOperation{
+public abstract class CombineOnEqualSet extends THashMap<Expression,Expression> implements Expression{
 	protected CombineOnEqualSet() {
 	}
 	protected CombineOnEqualSet(int initialCapacity, float loadFactor) {

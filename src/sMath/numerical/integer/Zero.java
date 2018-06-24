@@ -1,15 +1,16 @@
 package sMath.numerical.integer;
 
 import java.util.concurrent.ForkJoinPool;
-
-import sMath.numerical.Number;
+import sMath.numerical.interfaces.IInteger;
+import sMath.numerical.interfaces.ILongBits;
 import sMath.utility.ThreadArrayOperation;
-
-public class Zero implements Number {
+import sMath.numerical.interfaces.INumber;
+import sMath.numerical.interfaces.IRealNumber;
+public class Zero implements IInteger {
 	private Zero() {};
 	public static final Zero ZERO=new Zero();
 	@Override
-	public Number negate() {
+	public INumber negate() {
 		return this;
 	}
 	
@@ -19,37 +20,37 @@ public class Zero implements Number {
 	}
 
 	@Override
-	public Number add(Number number) {
+	public INumber add(INumber number) {
 		return number;
 	}
 
 	@Override
-	public Number multiply(Number b) {
+	public INumber multiply(INumber b) {
 		return this;
 	}
 
 	@Override
-	public Number divide(Number b) {
+	public INumber divide(INumber b) {
 		return this;
 	}
 
 	@Override
-	public int compareTo(Number o) {
+	public int compareTo(IRealNumber o) {
 		return -o.signum();
 	}
 
 	@Override
-	public Number rightBitShift(Number n) {
+	public INumber rightBitShift(INumber n) {
 		return this;
 	}
 
 	@Override
-	public Number leftBitShift(Number n) {
+	public INumber leftBitShift(INumber n) {
 		return this;
 	}
 
 	@Override
-	public Number logicalBitShift(Number n) {
+	public INumber logicalBitShift(INumber n) {
 		return this;
 	}
 
@@ -64,31 +65,31 @@ public class Zero implements Number {
 	}
 
 	@Override
-	public Number bitwiseAnd(Number n) {
+	public INumber bitwiseAnd(INumber n) {
 		return this;
 	}
 
 	@Override
-	public Number bitwiseOr(Number n) {
+	public INumber bitwiseOr(INumber n) {
 		return n;
 	}
 
 	@Override
-	public Number bitwiseNot() {
+	public INumber bitwiseNot() {
 		return Integer.valueOf(-1);
 	}
 
 	@Override
-	public Number bitwiseNor(Number n) {
+	public INumber bitwiseNor(INumber n) {
 		return n.bitwiseNot();
 	}
 
 	@Override
-	public Number bitwiseXor(Number n) {
+	public INumber bitwiseXor(INumber n) {
 		return n;
 	}
 	@Override
-	public Number bitwiseNand(Number n) {
+	public INumber bitwiseNand(INumber n) {
 		return Integer.valueOf(-1);
 	}
 	@Override
@@ -96,44 +97,36 @@ public class Zero implements Number {
 		return 0;
 	}
 	@Override
-	public void getLongBits(int offset, long[] container) {
-		if(container.length<512)
-			java.util.Arrays.fill(container,0);
-		else {
-			class ZeroArray extends ThreadArrayOperation{
-
-				/***/private static final long serialVersionUID = 4347128162929098160L;
-
-				@Override
-				public ThreadArrayOperation construct() {
-					return new ZeroArray();
-				}
-
-				@Override
-				protected void operation() {
-					for(int i=start;i<end;i++)
-						container[i]=0;
-				}
-				
-			}
-			ThreadArrayOperation toNegate=new ZeroArray().setFields(0,container.length);
-			ForkJoinPool.commonPool().invoke(toNegate);
-		}
-	}
-	@Override
-	public int firstSignificant() {
-		return 0;
-	}
-	@Override
-	public int lastSignificant() {
-		return 0;
-	}
-	@Override
 	public byte signum() {
 		return 0;
 	}
 	@Override
-	public Number floorDivide(Number b) {
-		return /*b==this?NaN:*/this;//NaN if 0/0
+	public IInteger floorDivide(INumber b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int startPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int endPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ILongBits getLongBits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public INumber reciprocal() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
